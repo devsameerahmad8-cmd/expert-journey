@@ -1,0 +1,68 @@
+<header class="header sticky" id="ctrlHeader_zpHeader">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+
+      <a class="navbar-brand" href="https://zatca.gov.sa/">
+        <img src="assets/images/ZATCA-logo.svg" alt="ZATCA Logo">
+      </a>
+
+      <div class="search-box-mobile d-lg-none order-last">
+        <a href="https://zatca.gov.sa/ar/PortalServices/Search/Pages/default.aspx"
+           class="btn" id="mobileSearchBtn">
+          <img src="assets/images/icons/search-icon.svg" alt="search">
+        </a>
+      </div>
+
+      <a id="open-side-nav" type="button" class="navbar-toggler order-first">
+        <span class="d-block d-lg-none">
+          <img src="assets/images/icons/burger-button.svg" alt="menu">
+        </span>
+      </a>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="mobile-nav-header d-lg-none">
+          <img src="assets/images/icons/cancel-header.svg" alt="Close menu">
+        </div>
+
+        <ul class="navbar-nav">
+          <li *ngFor="let section of sections; let i = index"
+              class="nav-item dropdown"
+              [class.show]="openSectionIndex === i">
+            <a class="nav-link"
+               [href]="section.href"
+               (click)="toggleSection(i); $event.preventDefault()"
+               [attr.data-parent]="section.label">
+              {{ section.label }}
+              <img src="assets/images/icons/dropdown-header.svg"
+                   class="dropdown-arrow" alt="Expand">
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <div class="bg-white sub-menu-wrapper-main" [class.d-block]="openSectionIndex === i">
+              <div class="container">
+                <div class="dropdown-menu row" [class.show]="openSectionIndex === i">
+                  <p class="mega-title">{{ section.label }}</p>
+                  <ul>
+                    <li *ngFor="let item of section.children">
+                      <a class="dropdown-item" style="padding: 10px 0;" [href]="item.href">
+                        {{ item.label }}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="header-tools d-none d-lg-flex align-items-center">
+          <div class="search-box">
+            <a href="https://zatca.gov.sa/ar/PortalServices/Search/" class="btn" id="desktopSearchBtn">
+              <img src="assets/images/icons/search-icon.svg" alt="search">
+              البحث
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

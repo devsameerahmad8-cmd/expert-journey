@@ -1,0 +1,103 @@
+<section class="inner-cover-sec opacity-bot-bg">
+  <div class="cover-sec-bg"
+       style="background-image: url(assets/zatcaImages/zatcaRevamp/in-bg-1.jpg);"></div>
+  <div class="dark-cover"></div>
+  <div>
+    <div class="breadcrumb-cont">
+      <div class="container">
+        <ol class="breadcrumb">
+          <span>
+            <a title="الصفحة الرئيسية" href="https://zatca.gov.sa/">
+              هيئة الزكاة والضريبة والجمارك
+            </a>
+          </span>
+          <span> &gt; </span>
+          <span>
+            <a href="https://zatca.gov.sa/ar/">هيئة الزكاة والضريبة والجمارك</a>
+          </span>
+          <span> &gt; </span>
+          <span>CustomsCards</span>
+          <span> &gt; </span>
+          <span>التحقق من البطاقة الجمركية</span>
+        </ol>
+      </div>
+    </div>
+    <div class="container">
+      <h1>التحقق من البطاقة الجمركية</h1>
+    </div>
+  </div>
+</section>
+
+<div class="inner-page">
+  <div class="container">
+    <div class="carddetails">
+
+      <div class="alert alert-success text-center">
+        <img src="../../assets/verify-icon.png" alt="">
+        <div><i class="fa fa-4x fa-check-square"></i></div>
+        <h3>تم التحقق من البطاقة الجمركية بنجاح</h3>
+      </div>
+
+      <ng-container *ngIf="card$ | async as card">
+        <div class="d-flex justify-content-between mb-2">
+          <div class="doc-titles">
+            <h3>{{ card.port }}</h3>
+            <h1>{{ card.cardTitle }}</h1>
+          </div>
+          <div>
+            <table>
+              <tr>
+                <td>رقم البطاقة:</td>
+                <td>{{ card.cardNumber }}</td>
+              </tr>
+              <tr>
+                <td>التاريخ:</td>
+                <td>{{ card.date }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="border">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td colspan="2"><span class="label">نوع المركبة (الشكل): </span><span class="value">{{ card.vehicleType }}</span></td>
+                <td colspan="2"><span class="label">حالة المركبة: </span><span class="value">{{ card.status }}</span></td>
+              </tr>
+              <tr>
+                <td colspan="2"><span class="label">سنة الصنع: </span><span class="value">{{ card.makeYear }}</span></td>
+                <td colspan="2"><span class="label">حمولة: </span><span class="value">{{ card.capacity }}</span></td>
+              </tr>
+              <tr>
+                <td colspan="2"><span class="label">بلد الصنع: </span><span class="value">{{ card.sourceCountry }}</span></td>
+                <td colspan="2"><span class="label">قوة المحرك: </span><span class="value">{{ card.enginePower }}</span></td>
+              </tr>
+              <tr>
+                <td colspan="2"><span class="label">رقم القاعدة: </span><span class="value">{{ card.baseNumber }}</span></td>
+                <td colspan="2"><span class="label">الوزن: </span><span class="value">{{ card.weight }}</span></td>
+              </tr>
+              <tr>
+                <td colspan="2"><span class="label">رقم المحرك:</span><span class="value">{{ card.engineNumber }}</span></td>
+                <td colspan="2"><span class="label">اسم المستورد / المالك: </span><span class="value">{{ card.ownerName }}</span></td>
+              </tr>
+              <tr>
+                <td colspan="2"><span class="label">اللون: </span><span class="value">{{ card.color }}</span></td>
+                <td><span class="label">رقم البيان الجمركي: </span><span class="value">{{ card.declarationNumber }}</span></td>
+                <td><span class="label">تاريخه: </span><span class="value">{{ card.declarationDate }}</span></td>
+              </tr>
+              <tr>
+                <td colspan="2"><span class="label">جنسية المالك: </span><span class="value">{{ card.nationality }}</span></td>
+                <td colspan="2"><span class="label">محل اقامته: </span><span class="value">{{ card.address }}</span></td>
+              </tr>
+              <tr>
+                <td colspan="2"><span class="label">لوحة مؤقتة: </span><span class="value">{{ card.plateNumber }}</span></td>
+                <td colspan="2"><span class="label">ملاحظات السيارة: </span><span class="value">{{ card.notes }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

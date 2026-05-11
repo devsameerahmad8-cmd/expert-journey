@@ -1,0 +1,7 @@
+:host {
+  display: block;
+}
+
+::ng-deep .footer .bottom-links a {
+  text-decoration: underline !important;
+}

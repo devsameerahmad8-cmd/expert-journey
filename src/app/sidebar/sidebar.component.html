@@ -1,0 +1,58 @@
+<a href="javascript:void(0)"
+   class="floating-btn btn d-lg-none d-flex gap-2 align-items-center justify-content-center"
+   (click)="toggle()"
+   aria-expanded="true">
+  <img src="assets/images/icons/dashboard-square.svg" alt="Dashboard">
+  <img src="assets/images/icons/nav-arrow-icon.svg" class="arrow" alt="Nav Arrow">
+</a>
+
+<aside id="sideMenu" [class.show]="open">
+  <div class="links">
+
+    <div class="links__header">
+      <div id="divAccountContainer">
+
+        <div id="closeAside" class="close-aside d-lg-none cursor-pointer" (click)="close()">
+          <img src="assets/images/icons/close.svg" width="8px" alt="Close">
+        </div>
+
+        <div>
+          <div class="links__header-inner d-flex justify-content-between align-items-center">
+            <div class="links__info">
+              <div class="links__title"></div>
+            </div>
+            <div class="links__notification">
+              <img src="assets/images/icons/notification.svg" alt="Notification">
+            </div>
+          </div>
+
+          <ul class="auth-btn-group">
+            <li class="loginPopupMob">
+              <a href="https://zatca.gov.sa/" style="color: #389cf4;">تسجيل الدخول</a>
+            </li>
+            <li class="testhead2 user-login-signup">
+              <a href="javascript:void(0)" style="color: #389cf4;">مستخدم جديد</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="links__menu">
+      <div *ngFor="let item of navItems"
+           class="links__nav-item"
+           [class.selected]="item.selected">
+        <a [title]="item.label" class="links__nav-link" [href]="item.href">
+          <div class="links__nav-title">
+            <img src="assets/zatcaImages/zatcaRevamp/service-icon.png"
+                 [alt]="item.label"
+                 onerror="this.style.display='none'">
+            <span>{{ item.label }}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div class="global-backdrop" [class.show]="open" (click)="close()"></div>

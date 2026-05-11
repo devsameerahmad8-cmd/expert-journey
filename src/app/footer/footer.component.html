@@ -1,0 +1,89 @@
+<footer class="footer" id="ctrlFooter_footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="grid-row-5 grid-gap-2">
+        <div class="footer-category" *ngFor="let col of columns">
+          <h6 class="footer-heading">{{ col.heading }}</h6>
+          <ul class="list-unstyled">
+            <li class="mb-2" *ngFor="let link of col.links">
+              <a [href]="link.href" [attr.target]="link.target || null">{{ link.label }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-category" id="footer-static-section">
+          <div class="footer-section">
+            <h6 class="footer-heading">تابعنا على وسائل التواصل الإجتماعي</h6>
+            <div class="social-media-icons mb-8">
+              <a *ngFor="let s of socials"
+                 class="btn btn-outline-light"
+                 [href]="s.href"
+                 [title]="s.title">
+                <img [src]="s.icon" [alt]="s.title">
+              </a>
+            </div>
+
+            <h6 class="footer-heading">أدوات الوصول</h6>
+            <div class="accessibility-tools mb-8">
+              <a class="btn btn-outline-light" title="Grayscale" href="javascript:void(0)">
+                <img src="assets/images/icons/contrast.svg" alt="Grayscale">
+              </a>
+              <a class="btn btn-outline-light" href="javascript:void(0)" title="الأوامر الصوتية">
+                <img src="assets/images/icons/voice.svg" alt="الأوامر الصوتية">
+              </a>
+              <a class="btn btn-outline-light" target="_blank"
+                 href="https://tstchatbot.zatca.gov.sa/" title="لغة الإشارة">
+                <img src="assets/images/icons/deaf.svg" alt="لغة الإشارة">
+              </a>
+              <a class="btn btn-outline-light" href="javascript:void(0)" title="تصغير النص">
+                <img src="assets/images/icons/zoomout.svg" alt="Zoom Out">
+              </a>
+              <a class="btn btn-outline-light" href="javascript:void(0)" title="تكبير النص">
+                <img src="assets/images/icons/zoomin.svg" alt="Zoom In">
+              </a>
+            </div>
+
+            <h6 class="footer-heading">حمل تطبيقات الجوال</h6>
+            <div class="app-downloads">
+              <a title="تطبيقنا على متجر أبل" class="store-btn"
+                 href="https://apps.apple.com/sa/app/zatca/id1517289036" target="_blank">
+                <img src="assets/images/icons/apple.svg" alt="App Store" />
+              </a>
+              <a title="تطبيقنا على متجر جوجل" class="store-btn"
+                 href="https://play.google.com/store/apps/details?id=com.gazt.egazt" target="_blank">
+                <img src="assets/images/icons/google.svg" alt="Google Play" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 py-4 mt-4">
+        <div class="copyright">
+          <div>
+            <div class="bottom-links">
+              <ul class="d-flex align-items-center">
+                <li *ngFor="let l of bottomLinks; let i = index"
+                    [class.mx-3]="i === 1">
+                  <a [title]="l.label" [href]="l.href">{{ l.label }}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+              <div class="copyright-text">
+                <p>جميع الحقوق محفوظة 2026 © هيئة الزكاة والضريبة والجمارك</p>
+              </div>
+            </div>
+          </div>
+          <div class="footer-logos">
+            <a title="Vision 2030" href="https://www.vision2030.gov.sa/" target="_blank">
+              <img src="assets/zatcaImages/zatcaRevamp/footer/2030.svg" alt="Vision 2030" />
+            </a>
+            <img src="assets/images/ZATCA-logo.svg"
+                 alt="هيئة الزكاة والضريبة والجمارك" class="footer-logo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

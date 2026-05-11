@@ -1,0 +1,105 @@
+<div class="top-header">
+  <div class="container-fluid">
+    <div class="top-header-layout">
+
+      <div class="digital-stamp-card">
+        <div class="digital-stamp-header" (click)="toggleStamp()">
+          <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true">
+            <rect width="20" height="14" fill="#006923" />
+          </svg>
+          <h6>موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية</h6>
+          <div class="btn-digital-stamp-card">
+            <span>كيف تتحقق</span>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+              <path d="M1.4 0.7L5 4.5L8.6 0.7" stroke="#1B8354" stroke-width="1.5"
+                    stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="digital-stamp-body" *ngIf="stampOpen">
+          <div class="digital-stamp-container">
+            <div class="box">
+              <div>
+                <h6>روابط المواقع الالكترونية الرسمية السعودية تنتهي بـ
+                  <span class="green-text">gov.sa</span></h6>
+                <p>جميع روابط المواقع الرسمية التابعة للجهات الحكومية في المملكة العربية السعودية تنتهي بـ .gov.sa</p>
+              </div>
+            </div>
+            <div class="box">
+              <div>
+                <h6>المواقع الالكترونية الحكومية تستخدم بروتوكول
+                  <span class="green-text">HTTPS</span> للتشفير و الأمان.</h6>
+                <p>المواقع الالكترونية الآمنة في المملكة العربية السعودية تستخدم بروتوكول HTTPS للتشفير.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-header-tools-container">
+        <div class="lang-switch">
+          <a href="javascript:void(0)" class="btn px-0 d-flex align-items-center language-select">
+            <img src="assets/images/icons/language-square.svg" class="me-1" alt="English">
+            <span class="d-none d-md-block">English</span>
+          </a>
+        </div>
+        <a href="https://zatca.gov.sa/ar/contactus/Pages/default.aspx"
+           class="contact-us d-flex gap-1">
+          <img src="assets/images/icons/customer-service.svg" class="me-1" alt="اتصل بنا">
+        </a>
+
+        <div class="ms-auto top-header-tools">
+          <a href="https://zatca.gov.sa/ar/AboutUs/ZATCAApps" class="top-header-tool"
+             title="تطبيقات الهيئة للهواتف المحمولة">
+            <img src="assets/images/icons/zatca-app.svg" alt="ZATCA Mobile Apps">
+          </a>
+
+          <div class="accessibility-toggle-container position-relative">
+            <button class="btn px-1 top-header-tool d-flex align-items-center gap-1"
+                    type="button"
+                    (click)="toggleAccessibility()"
+                    title="Accessibility Options">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 1.04C14.94 1.04 18.96 5.06 18.96 10S14.94 18.96 10 18.96
+                         5.06 18.96 1.04 14.94 1.04 10 5.06 1.04 10 1.04Z"
+                      stroke="#161616" stroke-width="1.2" fill="none"/>
+              </svg>
+            </button>
+
+            <div class="card accessibility-panel shadow-lg position-absolute"
+                 *ngIf="accessibilityOpen"
+                 style="top: 100%; margin-top: 1rem; z-index: 1050;">
+              <div class="card-body p-0">
+                <div class="accessibility-section text-center">
+                  <h6>الأوامر الصوتية</h6>
+                  <button type="button" class="top-header-tool" title="تفعيل المساعد الصوتي">
+                    <img src="assets/images/icons/voice.svg" alt="الأوامر الصوتية" />
+                  </button>
+                </div>
+                <div class="accessibility-section text-center">
+                  <h6>حجم الخط</h6>
+                  <div class="d-flex justify-content-center gap-3">
+                    <button type="button" class="top-header-tool" title="تصغير النص">
+                      <img src="assets/images/icons/fontminus.svg" alt="تصغير النص" />
+                    </button>
+                    <button type="button" class="top-header-tool" title="تكبير النص">
+                      <img src="assets/images/icons/fontplus.svg" alt="تكبير النص" />
+                    </button>
+                  </div>
+                </div>
+                <div class="accessibility-section text-center">
+                  <h6>التباين</h6>
+                  <button type="button" class="top-header-tool" title="تباين عالي">
+                    <img src="assets/images/icons/contrast.svg" alt="تباين عالي">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

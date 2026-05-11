@@ -1,0 +1,8 @@
+/* Minimal local tweaks: enable dropdown panel when toggled by Angular. */
+:host {
+  display: block;
+}
+
+::ng-deep .nav-item.dropdown.show > .sub-menu-wrapper-main {
+  display: block;
+}
