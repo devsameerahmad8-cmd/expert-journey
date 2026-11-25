@@ -44,6 +44,10 @@
             <h3>{{ card.port }}</h3>
             <h1>{{ card.cardTitle }}</h1>
           </div>
+          <div class="verification-qr" *ngIf="qrDataUrl">
+            <img [src]="qrDataUrl" alt="رمز التحقق QR">
+            <span>رمز التحقق</span>
+          </div>
           <div>
             <table>
               <tr>

@@ -25,6 +25,7 @@ export interface CustomsCard {
   address: string;
   plateNumber: string;
   notes: string;
+  entryRevision?: string;
 }
 
 const STORAGE_KEY = 'zatca-customs-card';
@@ -62,8 +63,13 @@ export class CardService {
   }
 
   save(card: CustomsCard): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(card));
-    this.cardSubject.next(card);
+    const revision = globalThis.crypto?.randomUUID
+      ? globalThis.crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const entry = { ...card, entryRevision: revision };
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entry));
+    this.cardSubject.next(entry);
   }
 
   reset(): void {

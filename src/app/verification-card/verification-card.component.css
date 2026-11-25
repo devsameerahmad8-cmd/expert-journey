@@ -1,3 +1,37 @@
 :host {
   display: block;
 }
+
+.verification-qr {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #dfe5e8;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-inline: 12px;
+  padding: 8px;
+}
+
+.verification-qr img {
+  display: block;
+  height: 180px;
+  width: 180px;
+}
+
+.verification-qr span {
+  color: #495057;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .verification-qr {
+    margin-inline: 0;
+  }
+
+  .verification-qr img {
+    height: 140px;
+    width: 140px;
+  }
+}
