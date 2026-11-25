@@ -41,8 +41,8 @@
       <ng-container *ngIf="card$ | async as card">
         <div class="d-flex justify-content-between mb-2">
           <div class="doc-titles">
-            <h3>جمرك ميناء جده الاسلامي</h3>
-            <h1>بطاقـة جمركية لوسائط النقل والمعدات الآلية</h1>
+            <h3>{{ card.port }}</h3>
+            <h1>{{ card.cardTitle }}</h1>
           </div>
           <div class="verification-qr" *ngIf="qrDataUrl">
             <img [src]="qrDataUrl" alt="رمز التحقق QR">
