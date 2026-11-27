@@ -84,6 +84,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "allowedHosts": [
+              ".cursorvm.com"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "zatca-app:build:production"
