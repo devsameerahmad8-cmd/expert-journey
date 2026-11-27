@@ -5,7 +5,7 @@ import { CardFormComponent } from './card-form/card-form.component';
 
 /**
  * Two routes:
- *   ''     - public verification view
+ *   ''     - public verification view (entry data only via ?e= / QR link)
  *   'form' - hidden admin form (no UI links anywhere; reachable only by URL)
  * If you ever want to gate the form behind a password, add a CanActivate guard
  * to the 'form' route — but right now the obscurity *is* the access control.

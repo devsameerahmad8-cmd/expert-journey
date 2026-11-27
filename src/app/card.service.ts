@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 export interface CustomsCard {
   port: string;
@@ -25,10 +25,12 @@ export interface CustomsCard {
   address: string;
   plateNumber: string;
   notes: string;
+  /** Unique id for this saved entry — drives its verification link / QR. */
   entryRevision?: string;
 }
 
 const STORAGE_KEY = 'zatca-customs-card';
+const ENTRIES_KEY = 'zatca-customs-entries';
 
 @Injectable({ providedIn: 'root' })
 export class CardService {
@@ -44,7 +46,9 @@ export class CardService {
   /**
    * Loads the card. Reads from localStorage first (where /form writes its
    * edits); if nothing's been saved yet, falls back to the seed JSON in
-   * assets/card-data.json so the page renders out of the box.
+   * assets/card-data.json so the form can be edited out of the box.
+   * The public verification page does not use this stream for display —
+   * it only shows an entry when opened via its verification link / QR.
    */
   private load(): void {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -62,19 +66,48 @@ export class CardService {
       .subscribe(data => this.cardSubject.next(data));
   }
 
-  save(card: CustomsCard): void {
+  /**
+   * Saves a new entry with a fresh unique id. Each save creates its own
+   * verification link and QR; previous entries remain addressable by id.
+   */
+  save(card: CustomsCard): CustomsCard {
     const revision = globalThis.crypto?.randomUUID
       ? globalThis.crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const entry = { ...card, entryRevision: revision };
+    const entry: CustomsCard = { ...card, entryRevision: revision };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(entry));
+    this.persistEntry(entry);
     this.cardSubject.next(entry);
+    return entry;
   }
 
   reset(): void {
     localStorage.removeItem(STORAGE_KEY);
     this.load();
+  }
+
+  /**
+   * Public verification URL for an entry. The URL carries the entry payload
+   * so anyone with the link (or QR) can view it with no login. It never
+   * includes form credentials or other login details.
+   */
+  verificationUrl(entry: CustomsCard): string {
+    const encoded = this.encodeEntry(entry);
+    // Always target the root verification page (never /form), unique per entry
+    return `${window.location.origin}/?e=${encoded}`;
+  }
+
+  /** Decode an entry from the `e` query param. Returns null if invalid. */
+  entryFromParam(encoded: string | null | undefined): CustomsCard | null {
+    if (!encoded) return null;
+    return this.decodeEntry(encoded);
+  }
+
+  /** Look up a previously saved entry by id (same browser). */
+  getEntryById(id: string): CustomsCard | null {
+    const entries = this.readEntries();
+    return entries[id] ?? null;
   }
 
   /**
@@ -92,5 +125,58 @@ export class CardService {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  }
+
+  encodeEntry(entry: CustomsCard): string {
+    const json = JSON.stringify(entry);
+    const bytes = new TextEncoder().encode(json);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary)
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+  }
+
+  decodeEntry(encoded: string): CustomsCard | null {
+    try {
+      const b64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = b64 + '='.repeat((4 - (b64.length % 4)) % 4);
+      const binary = atob(padded);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      const parsed = JSON.parse(new TextDecoder().decode(bytes)) as CustomsCard;
+      if (!parsed || typeof parsed !== 'object') return null;
+      return parsed;
+    } catch {
+      return null;
+    }
+  }
+
+  private persistEntry(entry: CustomsCard): void {
+    if (!entry.entryRevision) return;
+    const entries = this.readEntries();
+    entries[entry.entryRevision] = entry;
+    try {
+      localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries));
+    } catch {
+      // Quota exceeded — keep the latest single-card key; verification still
+      // works via the encoded URL for anyone who has the QR / link.
+    }
+  }
+
+  private readEntries(): Record<string, CustomsCard> {
+    try {
+      const raw = localStorage.getItem(ENTRIES_KEY);
+      if (!raw) return {};
+      const parsed = JSON.parse(raw) as Record<string, CustomsCard>;
+      return parsed && typeof parsed === 'object' ? parsed : {};
+    } catch {
+      return {};
+    }
   }
 }

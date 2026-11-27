@@ -72,14 +72,15 @@ export class CardFormComponent {
     return this.form.getRawValue() as unknown as CustomsCard;
   }
 
-  save(): void {
+  save(): CustomsCard | null {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      return;
+      return null;
     }
-    this.cardService.save(this.currentCard());
+    const entry = this.cardService.save(this.currentCard());
     this.saved = true;
     setTimeout(() => (this.saved = false), 2500);
+    return entry;
   }
 
   download(): void {
@@ -96,8 +97,12 @@ export class CardFormComponent {
     });
   }
 
+  /** Save a new entry, then open its unique verification link (QR target). */
   viewCard(): void {
-    this.save();
-    this.router.navigateByUrl('/');
+    const entry = this.save();
+    if (!entry) return;
+    void this.router.navigate(['/'], {
+      queryParams: { e: this.cardService.encodeEntry(entry) }
+    });
   }
 }
